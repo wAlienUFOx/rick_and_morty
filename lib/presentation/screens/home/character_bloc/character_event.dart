@@ -1,5 +1,3 @@
-import '../../../../data/models/character_model.dart';
-
 abstract class CharacterEvent {
   const CharacterEvent();
 
@@ -18,13 +16,4 @@ class LoadMoreCharacterEvent extends CharacterEvent {
 
   @override
   List<Object?> get props => [];
-}
-
-class LoadedCharacterEvent extends CharacterEvent {
-  final List<Character>? characters;
-
-  const LoadedCharacterEvent(this.characters);
-
-  @override
-  List<Object?> get props => [characters];
 }

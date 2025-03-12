@@ -23,6 +23,15 @@ class TextsTheme {
     );
   }
 
+  TextStyle body(Color color) {
+    return TextStyle(
+      color: color,
+      fontWeight: FontWeight.w400,
+      fontSize: 15,
+      letterSpacing: 0,
+    );
+  }
+
   TextStyle label(Color color) {
     return TextStyle(
       color: color,
