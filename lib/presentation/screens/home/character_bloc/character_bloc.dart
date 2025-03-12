@@ -43,13 +43,20 @@ class CharacterBloc extends Bloc<CharacterEvent, CharacterState> {
           ),
         );
       } else {
-        emit(ErrorMoreCharacterState(characters));
+        emit(
+          ErrorMoreCharacterState(
+            characters,
+            (e.message ?? '').contains('Failed host lookup')
+                ? 'Нет сети'
+                : e.response?.data['message'] ?? 'Неопознанная ошибка',
+          ),
+        );
       }
     } catch (e) {
       if (pageIndex == 0) {
         emit(ErrorCharacterState('Что-то пошло не так. Обновите страницу'));
       } else {
-        emit(ErrorMoreCharacterState(characters));
+        emit(ErrorMoreCharacterState(characters, 'Что-то пошло не так'));
       }
     }
   }

@@ -6,6 +6,7 @@ import 'package:rick_and_morty/presentation/screens/home/character_bloc/characte
 import 'package:rick_and_morty/presentation/theme/colors.dart';
 import 'package:rick_and_morty/presentation/widgets/character/character_tile_loading_widget.dart';
 import 'package:rick_and_morty/presentation/widgets/character/character_tile_widget.dart';
+import 'package:rick_and_morty/presentation/widgets/main_snack_bar.dart';
 import 'package:rick_and_morty/presentation/widgets/net_error_body_widget.dart';
 
 import '../../../data/models/character_model.dart';
@@ -45,7 +46,12 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: const MainAppBar(title: 'Персонажи'),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: BlocBuilder<CharacterBloc, CharacterState>(
+        child: BlocConsumer<CharacterBloc, CharacterState>(
+          listener: (context, state) {
+            if (state is ErrorMoreCharacterState) {
+              ScaffoldMessenger.of(context).showSnackBar(snackBar(context, state.message));
+            }
+          },
           builder: (context, state) {
             if (state is LoadingCharacterState) return const BaseCircularProgressIndicator();
             if (state is ErrorCharacterState) {

@@ -32,10 +32,12 @@ class ErrorCharacterState extends CharacterState {
 
 class ErrorMoreCharacterState extends CharacterState {
   final List<Character> characters;
-  ErrorMoreCharacterState(this.characters);
+  final String msg;
+  ErrorMoreCharacterState(this.characters, this.msg);
 
   @override
   List<Character> get props => characters;
+  String get message => msg;
 }
 
 class LoadedCharacterState extends CharacterState {
