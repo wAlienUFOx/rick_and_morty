@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:rick_and_morty/presentation/navigation/go_router_configuration.dart';
+import 'package:rick_and_morty/presentation/screens/home/character_bloc/character_bloc.dart';
 import 'package:rick_and_morty/presentation/theme/custom_theme.dart';
 
 import 'injection_container.dart';
@@ -18,7 +19,7 @@ class RickAndMortyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        // BlocProvider<CharactersBloc>(create: (context) => sl()),
+        BlocProvider<CharacterBloc>(create: (context) => sl()),
         // BlocProvider<FavoritesBloc>(create: (context) => sl()),
       ],
       child: Provider(
