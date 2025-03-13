@@ -23,11 +23,11 @@ class LoadingMoreCharacterState extends CharacterState {
 }
 
 class ErrorCharacterState extends CharacterState {
-  final String _msg;
-  ErrorCharacterState(this._msg);
+  final String _message;
+  ErrorCharacterState(this._message);
   @override
   List<Character> get characters => [];
-  String get message => _msg;
+  String get message => _message;
 }
 
 class ErrorMoreCharacterState extends CharacterState {

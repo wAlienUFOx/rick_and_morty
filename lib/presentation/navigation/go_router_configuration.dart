@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rick_and_morty/presentation/screens/favorite/favorite_screen.dart';
 import '../screens/home/home_screen.dart';
 import 'app_routes.dart';
 import 'nav_handler.dart';
@@ -13,18 +14,6 @@ class GoRouterConfiguration {
     initialLocation: AppRoutes.home,
     navigatorKey: _rootNavigatorKey,
     routes: [
-      // GoRoute(
-      //   path: AppRoutes.favorite,
-      //   name: AppRoutes.favorite,
-      //   builder: (context, state) {
-      //     if (state.extra is int) {
-      //       final routeId = state.extra as int;
-      //       return FavoriteRouteScreen(routeId: routeId);
-      //     } else {
-      //       throw Exception('AppRoutes.favorite - state.extra is not int');
-      //     }
-      //   },
-      // ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) => NavHandler(navigationShell: navigationShell),
         branches: [
@@ -34,23 +23,23 @@ class GoRouterConfiguration {
               GoRoute(path: AppRoutes.home, name: AppRoutes.home, builder: (context, state) => const HomeScreen()),
             ],
           ),
+          StatefulShellBranch(
+            initialLocation: AppRoutes.favorite,
+            routes: [
+              GoRoute(
+                path: AppRoutes.favorite,
+                name: AppRoutes.favorite,
+                builder: (context, state) => const FavoriteScreen(),
+              ),
+            ],
+          ),
           // StatefulShellBranch(
-          //   initialLocation: AppRoutes.routes,
+          //   initialLocation: AppRoutes.settings,
           //   routes: [
           //     GoRoute(
-          //       path: AppRoutes.routes,
-          //       name: AppRoutes.routes,
-          //       builder: (context, state) => const RoutesScreen(),
-          //     ),
-          //   ],
-          // ),
-          // StatefulShellBranch(
-          //   initialLocation: AppRoutes.info,
-          //   routes: [
-          //     GoRoute(
-          //       path: AppRoutes.info,
-          //       name: AppRoutes.info,
-          //       builder: (context, state) => const InfoScreen(),
+          //       path: AppRoutes.settings,
+          //       name: AppRoutes.settings,
+          //       builder: (context, state) => const SettingsScreen(),
           //     ),
           //   ],
           // ),

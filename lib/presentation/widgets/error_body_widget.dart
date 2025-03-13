@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import '../theme/texts.dart';
 
-class NetErrorBodyWidget extends StatelessWidget {
-  const NetErrorBodyWidget({super.key, required this.onRefresh, required this.error, this.smallButton = false});
+class ErrorBodyWidget extends StatelessWidget {
+  const ErrorBodyWidget({super.key, required this.onRefresh, required this.error});
 
   final void Function() onRefresh;
-  final bool smallButton;
   final String error;
 
   @override

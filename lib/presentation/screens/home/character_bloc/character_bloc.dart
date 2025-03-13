@@ -9,9 +9,9 @@ import '../../../../domain/repositories/characters_repository.dart';
 class CharacterBloc extends Bloc<CharacterEvent, CharacterState> {
   final CharactersRepository _charactersRepository;
 
-  int pageIndex = 0;
-  bool hasMore = false;
-  List<Character> characters = [];
+  int _pageIndex = 0;
+  bool _hasMore = false;
+  final List<Character> _characters = [];
 
   CharacterBloc(this._charactersRepository) : super(InitialCharacterState()) {
     on<LoadCharacterEvent>((event, emitter) async {
@@ -19,8 +19,8 @@ class CharacterBloc extends Bloc<CharacterEvent, CharacterState> {
       await _getCharacters(emitter);
     });
     on<LoadMoreCharacterEvent>((event, emitter) async {
-      if (hasMore) {
-        emitter(LoadingMoreCharacterState(characters));
+      if (_hasMore) {
+        emitter(LoadingMoreCharacterState(_characters));
         await _getCharacters(emitter);
       }
     });
@@ -28,13 +28,13 @@ class CharacterBloc extends Bloc<CharacterEvent, CharacterState> {
 
   Future<void> _getCharacters(Emitter<CharacterState> emit) async {
     try {
-      final loadedCharacters = await _charactersRepository.getCharacters(pageIndex + 1);
-      hasMore = loadedCharacters.info.next != null;
-      pageIndex++;
-      characters.addAll(loadedCharacters.results);
-      emit(LoadedCharacterState(characters));
+      final loadedCharacters = await _charactersRepository.getCharacters(_pageIndex + 1);
+      _hasMore = loadedCharacters.info.next != null;
+      _pageIndex++;
+      _characters.addAll(loadedCharacters.results);
+      emit(LoadedCharacterState(_characters));
     } on DioException catch (e) {
-      if (pageIndex == 0) {
+      if (_pageIndex == 0) {
         emit(
           ErrorCharacterState(
             (e.message ?? '').contains('Failed host lookup')
@@ -45,7 +45,7 @@ class CharacterBloc extends Bloc<CharacterEvent, CharacterState> {
       } else {
         emit(
           ErrorMoreCharacterState(
-            characters,
+            _characters,
             (e.message ?? '').contains('Failed host lookup')
                 ? 'Нет сети'
                 : e.response?.data['message'] ?? 'Неопознанная ошибка',
@@ -53,10 +53,10 @@ class CharacterBloc extends Bloc<CharacterEvent, CharacterState> {
         );
       }
     } catch (e) {
-      if (pageIndex == 0) {
+      if (_pageIndex == 0) {
         emit(ErrorCharacterState('Что-то пошло не так. Обновите страницу'));
       } else {
-        emit(ErrorMoreCharacterState(characters, 'Что-то пошло не так'));
+        emit(ErrorMoreCharacterState(_characters, 'Что-то пошло не так'));
       }
     }
   }

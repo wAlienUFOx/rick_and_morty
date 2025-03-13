@@ -9,10 +9,6 @@ class CharactersRepositoryImpl implements CharactersRepository {
 
   @override
   Future<ResponseModel> getCharacters(int page) async {
-    try {
-      return await _charactersApiClient.getCharacters(page);
-    } catch (e) {
-      rethrow;
-    }
+    return await _charactersApiClient.getCharacters(page);
   }
 }

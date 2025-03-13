@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rick_and_morty/presentation/screens/favorite/favorite_bloc/favorite_bloc.dart';
+import 'package:rick_and_morty/presentation/screens/favorite/favorite_bloc/favorite_event.dart';
 import 'package:rick_and_morty/presentation/theme/texts.dart';
 
 import '../../../data/models/character_model.dart';
@@ -12,6 +15,7 @@ class CharacterTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isFavorite = BlocProvider.of<FavoriteBloc>(context).state.favorite.any((e) => e.id == character.id);
     return Container(
       decoration: BoxDecoration(color: ColorsTheme.of(context).primaryBG, borderRadius: BorderRadius.circular(8)),
       margin: const EdgeInsets.symmetric(vertical: 8),
@@ -57,8 +61,14 @@ class CharacterTileWidget extends StatelessWidget {
               ],
             ),
           ),
-          //favorite ? :
-          Icon(Icons.star_border_outlined, color: ColorsTheme.of(context).accentIcon, size: 30),
+          IconButton(
+            onPressed: () => BlocProvider.of<FavoriteBloc>(context).add(AddRemoveFavoriteEvent(character)),
+            icon: Icon(
+              isFavorite ? Icons.star : Icons.star_border_outlined,
+              color: ColorsTheme.of(context).accentIcon,
+              size: 30,
+            ),
+          ),
         ],
       ),
     );
