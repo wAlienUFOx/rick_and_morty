@@ -23,6 +23,15 @@ class TextsTheme {
     );
   }
 
+  TextStyle heading2(Color color) {
+    return TextStyle(
+      color: color,
+      fontWeight: FontWeight.w500,
+      letterSpacing: 0,
+      fontSize: 23,
+    );
+  }
+
   TextStyle body(Color color) {
     return TextStyle(
       color: color,

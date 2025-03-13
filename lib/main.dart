@@ -6,6 +6,9 @@ import 'package:rick_and_morty/presentation/screens/favorite/favorite_bloc/favor
 import 'package:rick_and_morty/presentation/screens/favorite/favorite_bloc/favorite_event.dart';
 import 'package:rick_and_morty/presentation/screens/home/character_bloc/character_bloc.dart';
 import 'package:rick_and_morty/presentation/screens/home/character_bloc/character_event.dart';
+import 'package:rick_and_morty/presentation/screens/settings/settings_bloc/settings_bloc.dart';
+import 'package:rick_and_morty/presentation/screens/settings/settings_bloc/settings_event.dart';
+import 'package:rick_and_morty/presentation/screens/settings/settings_bloc/settings_state.dart';
 import 'package:rick_and_morty/presentation/theme/custom_theme.dart';
 
 import 'injection_container.dart';
@@ -25,24 +28,26 @@ class RickAndMortyApp extends StatelessWidget {
       providers: [
         BlocProvider<CharacterBloc>(create: (context) => sl()..add(LoadCharacterEvent())),
         BlocProvider<FavoriteBloc>(create: (context) => sl()..add(LoadFavoriteEvent())),
+        BlocProvider<SettingsBloc>(create: (context) => sl()..add(LoadSettingsEvent())),
       ],
       child: Provider(
         create: (context) => GoRouterConfiguration(),
-        child: Builder(builder: (context) {
-          return ThemeProvider(
-            appTheme: AppTheme.light,
-            child: MaterialApp.router(
-              routerConfig: Provider.of<GoRouterConfiguration>(context).router,
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-                useMaterial3: true,
-              ),
-            ),
-          );
-        }),
+        child: Builder(
+          builder: (context) {
+            return BlocBuilder<SettingsBloc, SettingsState>(
+              builder: (context, state) {
+                return ThemeProvider(
+                  appTheme: state.appTheme,
+                  child: MaterialApp.router(
+                    routerConfig: Provider.of<GoRouterConfiguration>(context).router,
+                    debugShowCheckedModeBanner: false,
+                  ),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
 }
-

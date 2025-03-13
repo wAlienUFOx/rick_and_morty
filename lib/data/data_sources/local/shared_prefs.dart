@@ -13,8 +13,14 @@ class SharedPrefs {
 
   static set favorites(List<Character> value) =>
       sharedPreferences.setStringList(SharedPrefsNames.favorites, value.map((e) => json.encode(e.toJson())).toList());
+
+  /// тёмная тема
+  static bool get darkTheme => sharedPreferences.getBool(SharedPrefsNames.darkTheme) ?? false;
+
+  static set darkTheme(bool darkTheme) => sharedPreferences.setBool(SharedPrefsNames.darkTheme, darkTheme);
 }
 
 class SharedPrefsNames {
   static String favorites = 'favorites';
+  static String darkTheme = 'darkTheme';
 }

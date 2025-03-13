@@ -35,10 +35,10 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     }
   }
 
-  Future<void> _addRemoveFavorite(Character character, Emitter<FavoriteState> emit) async {
+  _addRemoveFavorite(Character character, Emitter<FavoriteState> emit) {
     try {
       if (_inFavorite(character)) {
-        _favorite.remove(character);
+        _favorite.removeWhere((e) => e.id == character.id);
         _favoriteRepository.setFavorites(_favorite);
       } else {
         _favorite.add(character);

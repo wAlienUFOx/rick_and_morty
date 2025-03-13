@@ -34,25 +34,14 @@ class ThemeProvider extends StatefulWidget {
 
   @override
   State<ThemeProvider> createState() => ThemeProviderState();
-
-  static ThemeProviderState of(BuildContext context) {
-    return context.findAncestorStateOfType<ThemeProviderState>()!;
-  }
 }
 
 class ThemeProviderState extends State<ThemeProvider> {
   ColorsTheme _colorsTheme = ColorsTheme.light;
 
   @override
-  void initState() {
-    super.initState();
-    _colorsTheme = ColorsTheme.getThemeFromKey(widget.appTheme);
-  }
-
-  void changeTheme(ColorsTheme colorsTheme) => setState(() => _colorsTheme = colorsTheme);
-
-  @override
   Widget build(BuildContext context) {
+    _colorsTheme = ColorsTheme.getThemeFromKey(widget.appTheme);
     return CustomTheme(appTheme: _colorsTheme.theme, child: widget.child);
   }
 }
