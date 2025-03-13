@@ -9,9 +9,11 @@ import '../../../data/models/character_model.dart';
 import '../../theme/colors.dart';
 
 class CharacterTileWidget extends StatelessWidget {
-  const CharacterTileWidget({super.key, required this.character});
+  const CharacterTileWidget({super.key, required this.character, this.hasFavoriteButton = true, this.onSlide});
 
   final Character character;
+  final bool hasFavoriteButton;
+  final void Function()? onSlide;
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +54,9 @@ class CharacterTileWidget extends StatelessWidget {
                   character.status,
                   style: TextsTheme.of(context).label(
                     character.status == 'Alive'
-                        ? ColorsTheme.of(context).positiveText
+                        ? ColorsTheme.of(context).positive
                         : character.status == 'Dead'
-                        ? ColorsTheme.of(context).negativeText
+                        ? ColorsTheme.of(context).negative
                         : ColorsTheme.of(context).primaryText,
                   ),
                 ),
@@ -62,11 +64,18 @@ class CharacterTileWidget extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () => BlocProvider.of<FavoriteBloc>(context).add(AddRemoveFavoriteEvent(character)),
+            onPressed:
+                hasFavoriteButton
+                    ? () => BlocProvider.of<FavoriteBloc>(context).add(AddRemoveFavoriteEvent(character))
+                    : onSlide,
             icon: Icon(
-              isFavorite ? Icons.star : Icons.star_border_outlined,
+              !hasFavoriteButton
+                  ? Icons.chevron_left
+                  : isFavorite
+                  ? Icons.star
+                  : Icons.star_border_outlined,
               color: ColorsTheme.of(context).accentIcon,
-              size: 30,
+              size: hasFavoriteButton ? 30 : 50,
             ),
           ),
         ],

@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty/presentation/screens/favorite/favorite_bloc/favorite_bloc.dart';
 import 'package:rick_and_morty/presentation/screens/favorite/favorite_bloc/favorite_event.dart';
 import 'package:rick_and_morty/presentation/screens/favorite/favorite_bloc/favorite_state.dart';
+import 'package:rick_and_morty/presentation/widgets/favorite/favorite_tile_widget.dart';
 
 import '../../../data/models/character_model.dart';
 import '../../theme/colors.dart';
 import '../../widgets/base_circular_progress_indicator.dart';
-import '../../widgets/character/character_tile_widget.dart';
 import '../../widgets/empty_body_widget.dart';
 import '../../widgets/main_app_bar.dart';
 import '../../widgets/error_body_widget.dart';
@@ -42,6 +42,6 @@ class FavoriteScreen extends StatelessWidget {
   }
 
   Widget _buildBody(List<Character> characters) {
-    return ListView(children: characters.map((e) => CharacterTileWidget(character: e)).toList());
+    return ListView(children: characters.map((e) => FavoriteTileWidget(character: e)).toList());
   }
 }

@@ -36,8 +36,9 @@ class ColorsTheme {
   Color get secondaryText => const Color(0x993C3C43);
   Color get accentText => const Color(0xFFFD5003);
   Color get primaryInvertedText => const Color(0xFFFFFFFF);
-  Color get positiveText => const Color(0xFF2FC26E);
-  Color get negativeText => const Color(0xFFF15045);
+
+  Color get positive => const Color(0xFF2FC26E);
+  Color get negative => const Color(0xFFF15045);
 
   Color get primarySF => const Color(0xFFFD5003);
   Color get primaryPressedSF => const Color(0xFFFF6521);
@@ -75,10 +76,11 @@ class DarkColorsTheme implements ColorsTheme {
   Color get accentText => const Color(0xFFFD5003);
   @override
   Color get primaryInvertedText => const Color(0xFFFFFFFF);
+
   @override
-  Color get positiveText => const Color(0xFF2FC26E);
+  Color get positive => const Color(0xFF2FC26E);
   @override
-  Color get negativeText => const Color(0xFFF15045);
+  Color get negative => const Color(0xFFF15045);
 
   @override
   Color get primarySF => const Color(0xFFFD5003);
