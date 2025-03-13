@@ -27,6 +27,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
         emit(EmptyFavoriteState());
       } else {
         _favorite.addAll(loadedFavorites);
+        _sort();
         emit(LoadedFavoriteState(_favorite));
       }
     } catch (e) {
@@ -36,11 +37,12 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
 
   Future<void> _addRemoveFavorite(Character character, Emitter<FavoriteState> emit) async {
     try {
-      if (inFavorite(character)) {
+      if (_inFavorite(character)) {
         _favorite.remove(character);
         _favoriteRepository.setFavorites(_favorite);
       } else {
         _favorite.add(character);
+        _sort();
         _favoriteRepository.setFavorites(_favorite);
       }
       if (_favorite.isEmpty) {
@@ -53,5 +55,10 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     }
   }
 
-  bool inFavorite(Character character) => _favorite.any((e) => e.id == character.id);
+  bool _inFavorite(Character character) => _favorite.any((e) => e.id == character.id);
+
+  ///sort by alphabetical order
+  void _sort() {
+    _favorite.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+  }
 }
