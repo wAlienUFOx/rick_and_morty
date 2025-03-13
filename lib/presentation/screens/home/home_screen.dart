@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 error: state.message,
               );
             }
-            return _buildBody(state.props);
+            return _buildBody(state.characters);
           },
         ),
       ),
