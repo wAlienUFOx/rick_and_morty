@@ -42,6 +42,6 @@ class FavoriteScreen extends StatelessWidget {
   }
 
   Widget _buildBody(List<Character> characters) {
-    return ListView(children: characters.map((e) => FavoriteTileWidget(character: e)).toList());
+    return ListView(children: characters.map((e) => FavoriteTileWidget(key: ValueKey(e.id), character: e)).toList());
   }
 }
