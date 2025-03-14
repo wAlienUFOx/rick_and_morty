@@ -48,7 +48,7 @@ class ColorsTheme {
   Color get secondaryInactiveSF => const Color(0xFFF6F5F4);
 
   Color get accentIcon => const Color(0xFFFD5003);
-  Color get primaryInvertedIcon => const Color(0xFFFFFFFF);
+  Color get primaryInvertedIcon => const Color(0xFFF2F2F2);
   Color get primaryIcon => const Color(0xFF161616);
 }
 
