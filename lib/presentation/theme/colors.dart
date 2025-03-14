@@ -93,7 +93,7 @@ class DarkColorsTheme implements ColorsTheme {
   @override
   Color get accentIcon => const Color(0xFFFD5003);
   @override
-  Color get primaryInvertedIcon => const Color(0xFFFFFFFF);
+  Color get primaryInvertedIcon => const Color(0xFF333333);
   @override
   Color get primaryIcon => const Color(0xFF161616);
 }
