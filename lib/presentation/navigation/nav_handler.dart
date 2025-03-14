@@ -9,11 +9,6 @@ class NavHandler extends StatelessWidget {
 
   final StatefulNavigationShell navigationShell;
 
-  bool isTablet(BuildContext context) {
-    var shortestSide = MediaQuery.of(context).size.shortestSide;
-    return shortestSide > 600 && MediaQuery.of(context).orientation == Orientation.landscape;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +17,7 @@ class NavHandler extends StatelessWidget {
       bottomNavigationBar: ClipRRect(
         borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
         child: SizedBox(
-          height: MediaQuery.sizeOf(context).height * 0.09,
+          height: MediaQuery.sizeOf(context).height * 0.1,
           child: BottomNavigationBar(
             backgroundColor: ColorsTheme.of(context).secondarySF,
             elevation: 0,
